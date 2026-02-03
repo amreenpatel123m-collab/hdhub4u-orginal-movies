@@ -1,4 +1,4 @@
-lconst API_KEY = '7cf8535c2aa2c745040de291475c23d2';
+const API_KEY = '7cf8535c2aa2c745040de291475c23d2';
 const BASE_URL = 'https://api.themoviedb.org/3';
 const IMG_URL = 'https://image.tmdb.org/t/p/w500';
 const currentYear = 2026; 
@@ -10,14 +10,17 @@ const movieGrid = document.getElementById('movie-grid');
 const pageNumText = document.getElementById('pageNumber');
 
 async function loadMovies(url, page = 1) {
-    const res = await fetch(url + "&page=" + page);
-    const data = await res.json();
-    
-    if (data.results) {
-        displayMovies(data.results);
-        currentPage = page;
-        // Safe Pagination Text
-        pageNumText.innerText = "Page " + currentPage + " of 7000";
+    try {
+        const res = await fetch(url + "&page=" + page);
+        const data = await res.json();
+        
+        if (data.results) {
+            displayMovies(data.results);
+            currentPage = page;
+            pageNumText.innerText = "Page " + currentPage + " of 7000";
+        }
+    } catch (err) {
+        console.log("Movie Load Error");
     }
 }
 
@@ -85,7 +88,6 @@ async function fetchSpecial(type) {
     loadMovies(currentUrl, 1);
 }
 
-// YAHAN SE NEWS WALA FIX HAI
 async function fetchCinemaNews() {
     const newsGrid = document.getElementById('news-grid');
     const rssUrl = 'https://timesofindia.indiatimes.com/rssfeeds/1081479906.cms';
@@ -95,7 +97,7 @@ async function fetchCinemaNews() {
         const response = await fetch(apiUrl);
         const data = await response.json();
 
-        if (data.status === 'ok') {
+        if (data && data.status === 'ok') {
             newsGrid.innerHTML = ''; 
             data.items.slice(0, 6).forEach(item => {
                 const tempDiv = document.createElement('div');
@@ -116,10 +118,9 @@ async function fetchCinemaNews() {
             });
         }
     } catch (error) {
-        newsGrid.innerHTML = '<p style="color:red; text-align:center;">Abhi news load nahi ho pa rahi hai. Kripya refresh karein.</p>';
+        newsGrid.innerHTML = '<p style="color:red; text-align:center;">News feed currently unavailable. Please refresh.</p>';
     }
 }
 
-// Dono function call karein
 loadMovies(currentUrl, 1);
 fetchCinemaNews();
