@@ -77,4 +77,9 @@ document.getElementById('next').addEventListener('click', () => loadMovies(curre
 document.getElementById('prev').addEventListener('click', () => { if(currentPage > 1) loadMovies(currentUrl, currentPage - 1); });
 
 loadMovies(currentUrl, 1);
-        
+     // Ye function Popular aur Upcoming movies ko TMDB se mangwayega
+async function fetchSpecial(type) {
+    currentUrl = `${BASE_URL}/movie/${type}?api_key=${API_KEY}`;
+    loadMovies(currentUrl, 1);
+    }
+            
