@@ -3,40 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HDHub4u | 300mb Movies | 720p Movies</title>
+    <title>HDHub4u | Download 300mb, 720p, 1080p Movies</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <header>
         <div class="main-header">
-            <div class="logo">HDHUB<span>4U</span></div>
+            <div class="logo" onclick="location.reload()" style="cursor:pointer;">HDHUB<span>4U</span></div>
             <div class="search-box">
                 <input type="text" id="movieInput" placeholder="Search Movies Here...">
                 <button id="searchBtn"><i class="fa fa-search"></i></button>
             </div>
         </div>
         <nav class="nav-bar">
-            <a href="#">Home</a>
-            <a href="#">Bollywood</a>
-            <a href="#">Hollywood</a>
-            <a href="#">Dual Audio</a>
-            <a href="#">Web Series</a>
+            <button class="nav-btn" onclick="filterMovies('home')">Home</button>
+            <button class="nav-btn" onclick="filterMovies('bollywood')">BollyWood</button>
+            <button class="nav-btn" onclick="filterMovies('hollywood')">HollyWood</button>
+            <button class="nav-btn" onclick="filterMovies('south')">South Hindi</button>
+            <button class="nav-btn" onclick="filterMovies('series')">Web Series</button>
         </nav>
     </header>
 
-    <main>
+    <div class="alert-box">
+        Avoid FAKE Copies of HDHub4u. Use our official domain with VPN.
+    </div>
+
+    <main id="main-content">
         <div class="container" id="movie-grid">
             </div>
 
         <div class="pagination">
             <button id="prev">Previous</button>
-            <span id="pageNumber">Page 1</span>
+            <span id="pageNumber">Page 1 of 500</span>
             <button id="next">Next Page</button>
         </div>
     </main>
 
     <script src="js/app.js"></script>
 </body>
-    </html>
-    
+</html>
