@@ -3,30 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HDHub4u - Movies Info & Downloads</title>
+    <title>HDHub4u Original</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body>
+<body style="background-color: #080808; margin: 0; font-family: Arial, sans-serif; color: white;">
 
-    <header>
-        <div class="logo">HDHUB<span>4U</span></div>
-        <nav>
-            <a href="#">Home</a>
-            <a href="#">Bollywood</a>
-            <a href="#">Hollywood</a>
-        </nav>
+    <header style="background:#1a1a1a; padding:15px 5%; border-bottom:3px solid #e50914; display:flex; justify-content:space-between; align-items:center;">
+        <div style="font-size:24px; font-weight:bold;">HDHUB<span style="background:#e50914; padding:2px 5px; border-radius:3px; margin-left:5px;">4U</span></div>
+        <nav><a href="index.html" style="color:white; text-decoration:none; font-weight:bold;">HOME</a></nav>
     </header>
 
-    <div class="search-section">
-        <input type="text" id="searchInput" placeholder="Search Movie Name Here...">
-        <button id="searchBtn"><i class="fas fa-search"></i> Search</button>
+    <div style="text-align:center; padding:30px; background:#000;">
+        <input type="text" id="movieInput" placeholder="Search Movie Name..." style="padding:12px; width:60%; border-radius:5px 0 0 5px; border:none; outline:none;">
+        <button id="searchBtn" style="padding:12px 20px; background:#e50914; color:white; border:none; border-radius:0 5px 5px 0; cursor:pointer; font-weight:bold;">SEARCH</button>
     </div>
 
-    <div class="container" id="movie-grid">
+    <div id="movie-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; padding: 20px;">
         </div>
 
     <script src="js/app.js"></script>
 </body>
-      </html>
-  
+        </html>
+        
