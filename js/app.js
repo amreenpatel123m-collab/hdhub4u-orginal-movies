@@ -82,4 +82,42 @@ async function fetchSpecial(type) {
     currentUrl = `${BASE_URL}/movie/${type}?api_key=${API_KEY}`;
     loadMovies(currentUrl, 1);
     }
+    async function fetchCinemaNews() {
+    const newsGrid = document.getElementById('news-grid');
+    // Using a free RSS to JSON converter to get TOI Entertainment News
+    const rssUrl = 'https://timesofindia.indiatimes.com/rssfeeds/1081479906.cms';
+    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+
+    try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        if (data.status === 'ok') {
+            newsGrid.innerHTML = ''; // Clear loading spinner
+            data.items.slice(0, 6).forEach(item => {
+                // Cleaning the description from HTML tags
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = item.description;
+                const cleanDesc = tempDiv.textContent || tempDiv.innerText || "";
+
+                const card = `
+                    <div class="news-card">
+                        <div>
+                            <h3>${item.title}</h3>
+                            <p>${cleanDesc.substring(0, 120)}...</p>
+                        </div>
+                        <a href="${item.link}" target="_blank" class="read-more">Read Full Story →</a>
+                    </div>
+                `;
+                newsGrid.innerHTML += card;
+            });
+        }
+    } catch (error) {
+        console.error('News Error:', error);
+        newsGrid.innerHTML = '<p style="color:red; text-align:center;">Abhi news load nahi ho pa rahi hai. Kripya refresh karein.</p>';
+    }
+}
+
+// Function ko call karein
+fetchCinemaNews();
             
