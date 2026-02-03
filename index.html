@@ -3,25 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HDHub4u Original</title>
+    <title>HDHub4u | 300mb Movies | 720p Movies</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body style="background-color: #080808; margin: 0; font-family: Arial, sans-serif; color: white;">
-
-    <header style="background:#1a1a1a; padding:15px 5%; border-bottom:3px solid #e50914; display:flex; justify-content:space-between; align-items:center;">
-        <div style="font-size:24px; font-weight:bold;">HDHUB<span style="background:#e50914; padding:2px 5px; border-radius:3px; margin-left:5px;">4U</span></div>
-        <nav><a href="index.html" style="color:white; text-decoration:none; font-weight:bold;">HOME</a></nav>
+<body>
+    <header>
+        <div class="main-header">
+            <div class="logo">HDHUB<span>4U</span></div>
+            <div class="search-box">
+                <input type="text" id="movieInput" placeholder="Search Movies Here...">
+                <button id="searchBtn"><i class="fa fa-search"></i></button>
+            </div>
+        </div>
+        <nav class="nav-bar">
+            <a href="#">Home</a>
+            <a href="#">Bollywood</a>
+            <a href="#">Hollywood</a>
+            <a href="#">Dual Audio</a>
+            <a href="#">Web Series</a>
+        </nav>
     </header>
 
-    <div style="text-align:center; padding:30px; background:#000;">
-        <input type="text" id="movieInput" placeholder="Search Movie Name..." style="padding:12px; width:60%; border-radius:5px 0 0 5px; border:none; outline:none;">
-        <button id="searchBtn" style="padding:12px 20px; background:#e50914; color:white; border:none; border-radius:0 5px 5px 0; cursor:pointer; font-weight:bold;">SEARCH</button>
-    </div>
+    <main>
+        <div class="container" id="movie-grid">
+            </div>
 
-    <div id="movie-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; padding: 20px;">
+        <div class="pagination">
+            <button id="prev">Previous</button>
+            <span id="pageNumber">Page 1</span>
+            <button id="next">Next Page</button>
         </div>
+    </main>
 
     <script src="js/app.js"></script>
 </body>
-        </html>
-        
+    </html>
+    
