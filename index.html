@@ -27,6 +27,7 @@
     <meta property="og:image" content="https://amreenpatel123m-collab.github.io/hdhub4u-orginal-movies/og-banner.jpg">
     <meta property="og:url" content="https://amreenpatel123m-collab.github.io/hdhub4u-orginal-movies/">
     <meta property="og:type" content="website">
+    
     <meta name="keywords" content="HDHub4u, YouTube, Facebook, WhatsApp Web, Instagram, Google Translate, Gmail, IPL 2026, Indian Premier League, Google Gemini, ICC Champions Trophy, Asia Cup, Pro Kabaddi League, Maha Kumbh Mela, Saiyaara Movie, Kantara A Legend Chapter 1, Coolie, King Shah Rukh Khan, Ramayana Part 1, Dhurandhar 2, Border 2, Toxic, Spirit, Predator Badlands, Five Nights at Freddys 2, Jurassic World Rebirth, Avatar The Way of Water, Wicked For Good, Sinners, F1 Movie, Avengers Doomsday, Dune Part Three, The Odyssey Christopher Nolan, IMDb, Letterboxd, Rotten Tomatoes, Netflix, Amazon Prime Video, Disney Plus Hotstar, JioCinema, Zee5, SonyLIV, Bollywood Movies 2026, Hollywood Hindi Dubbed, 300mb Movies Download, 480p 720p 1080p Movies, HDHub4u Original">
     <meta name="description" content="HDHub4u: India's No.1 site for Latest Movies. Download Saiyaara, Kantara, King, Ramayana, and Avengers. Watch Netflix, Amazon Prime, and Disney+ Hotstar Web Series for free. Original HDHub4u Movie Site 2026.">
     
@@ -37,9 +38,12 @@
     <header>
         <div class="main-header">
             <div class="logo" onclick="location.reload()" style="cursor:pointer;">HDHUB<span>4U</span></div>
-            <div class="search-box">
-                <input type="text" id="movieInput" placeholder="Search Movies Here...">
-                <button id="searchBtn"><i class="fa fa-search"></i></button>
+            <div class="search-container" style="position: relative;">
+                <div class="search-box">
+                    <input type="text" id="movieInput" placeholder="Search Movies Here..." autocomplete="off">
+                    <button id="searchBtn"><i class="fa fa-search"></i></button>
+                </div>
+                <div id="suggestion-box" class="suggestion-box"></div>
             </div>
         </div>
         
@@ -59,8 +63,7 @@
     </div>
 
     <main id="main-content">
-        <div class="container" id="movie-grid">
-            </div>
+        <div class="container" id="movie-grid"></div>
 
         <div class="pagination">
             <button id="prev">Previous</button>
@@ -75,18 +78,8 @@
         Kantara A Legend, Ramayana Part 1, Indian Premier League Live, HDHub4u Original site.</p>
     </div>
 
-    <script src="js/app.js"></script>
-
-    <footer style="background: #111; padding: 20px; text-align: center; border-top: 2px solid #e50914; margin-top: 50px;">
-        <p style="color: white;">&copy; 2026 HDHub4u - All Movie Info from TMDB API</p>
-        <div style="margin-top: 10px;">
-            <a href="disclaimer.html" style="color: #bbb; text-decoration: none; margin: 0 10px;">Disclaimer</a> | 
-            <a href="privacy.html" style="color: #bbb; text-decoration: none; margin: 0 10px;">Privacy Policy</a>
-        </div>
-    </footer>
-
     <section class="news-section">
-        <div class="container">
+        <div class="container-news" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
             <h2 class="section-title"><i class="fas fa-bolt" style="color: #ffcc00;"></i> Latest Cinema News</h2>
             <div id="news-grid" class="news-grid">
                 <div class="loading-news">
@@ -96,6 +89,15 @@
             </div>
         </div>
     </section>
+
+    <footer style="background: #111; padding: 20px; text-align: center; border-top: 2px solid #e50914; margin-top: 50px;">
+        <p style="color: white;">&copy; 2026 HDHub4u - All Movie Info from TMDB API</p>
+        <div style="margin-top: 10px;">
+            <a href="disclaimer.html" style="color: #bbb; text-decoration: none; margin: 0 10px;">Disclaimer</a> | 
+            <a href="privacy.html" style="color: #bbb; text-decoration: none; margin: 0 10px;">Privacy Policy</a>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
 </body>
-                    </html>
-    
+</html>
