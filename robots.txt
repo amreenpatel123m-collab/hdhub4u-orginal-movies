@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://amreenpatel123m-collab.github.io/hdhub4u-orginal-movies/sitemap.xml
+
