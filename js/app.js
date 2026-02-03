@@ -121,4 +121,3 @@ async function fetchCinemaNews() {
 // Initial Calls
 loadMovies(currentUrl, 1);
 fetchCinemaNews();
-                   
