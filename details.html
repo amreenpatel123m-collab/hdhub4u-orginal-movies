@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Details - HDHub4u</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .detail-container { padding: 50px 10%; display: flex; gap: 30px; }
+        .detail-img { width: 300px; border-radius: 10px; border: 2px solid #ff9d00; }
+        .info { flex: 1; }
+        .download-section { margin-top: 30px; background: #222; padding: 20px; border-radius: 10px; }
+        .dl-btn { background: green; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block; margin: 10px; }
+    </style>
+</head>
+<body>
+    <div id="movie-details" class="detail-container">
+        </div>
+
+    <script>
+        const API_KEY = '7cf8535c2aa2c745040de291475c23d2';
+        const urlParams = new URLSearchParams(window.location.search);
+        const movieId = urlParams.get('id');
+        const type = urlParams.get('type') || 'movie';
+
+        async function getMovieDetails() {
+            const res = await fetch(`https://api.themoviedb.org/3/${type}/${movieId}?api_key=${API_KEY}&append_to_response=videos`);
+            const data = await res.json();
+            
+            document.getElementById('movie-details').innerHTML = `
+                <img class="detail-img" src="https://image.tmdb.org/t/p/w500${data.poster_path}">
+                <div class="info">
+                    <h1>${data.title || data.name}</h1>
+                    <p style="color: #ff9d00; margin: 10px 0;">Rating: ${data.vote_average} | Release: ${data.release_date || data.first_air_date}</p>
+                    <p>${data.overview}</p>
+                    
+                    <div class="download-section">
+                        <h3>Download Links (High Quality)</h3>
+                        <a href="#" class="dl-btn">Download 720p [1.2GB]</a>
+                        <a href="#" class="dl-btn">Download 1080p [2.5GB]</a>
+                    </div>
+                </div>
+            `;
+        }
+        getMovieDetails();
+    </script>
+</body>
+  </html>
+  
