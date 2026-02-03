@@ -2,47 +2,114 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Details - HDHub4u</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        .detail-container { padding: 50px 10%; display: flex; gap: 30px; }
-        .detail-img { width: 300px; border-radius: 10px; border: 2px solid #ff9d00; }
-        .info { flex: 1; }
-        .download-section { margin-top: 30px; background: #222; padding: 20px; border-radius: 10px; }
-        .dl-btn { background: green; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block; margin: 10px; }
+        body { background-color: #0b0b0b; color: white; line-height: 1.6; }
+        .detail-header { 
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7), #0b0b0b), var(--bg-url);
+            background-size: cover; background-position: center; padding: 60px 5%; 
+        }
+        .detail-container { display: flex; gap: 40px; max-width: 1200px; margin: auto; flex-wrap: wrap; }
+        .detail-img { width: 300px; border-radius: 15px; box-shadow: 0 0 20px rgba(255,157,0,0.4); border: 2px solid #ff9d00; }
+        .info { flex: 1; min-width: 300px; }
+        .info h1 { font-size: 40px; margin-bottom: 10px; color: #ff9d00; }
+        .meta { margin-bottom: 20px; font-size: 14px; color: #ccc; }
+        .genre-badge { background: #333; padding: 5px 12px; border-radius: 20px; margin-right: 10px; font-size: 12px; }
+        
+        .trailer-section { margin-top: 40px; }
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 15px; background: #000; }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+
+        .cast-section { margin-top: 40px; }
+        .cast-grid { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 15px; }
+        .cast-card { min-width: 120px; text-align: center; }
+        .cast-card img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 2px solid #333; }
+        .cast-card p { font-size: 12px; margin-top: 5px; }
+
+        .download-box { background: #1a1a1a; padding: 30px; border-radius: 15px; margin-top: 40px; border-left: 5px solid #ff9d00; }
+        .dl-btn { background: #ff9d00; color: black; padding: 12px 25px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block; margin: 10px 5px; transition: 0.3s; }
+        .dl-btn:hover { background: #fff; transform: scale(1.05); }
     </style>
 </head>
 <body>
-    <div id="movie-details" class="detail-container">
+
+    <div id="content-wrapper">
         </div>
 
     <script>
         const API_KEY = '7cf8535c2aa2c745040de291475c23d2';
+        const IMG_URL = 'https://image.tmdb.org/t/p/w500';
+        const BACKDROP_URL = 'https://image.tmdb.org/t/p/original';
+        
         const urlParams = new URLSearchParams(window.location.search);
         const movieId = urlParams.get('id');
         const type = urlParams.get('type') || 'movie';
 
         async function getMovieDetails() {
-            const res = await fetch(`https://api.themoviedb.org/3/${type}/${movieId}?api_key=${API_KEY}&append_to_response=videos`);
-            const data = await res.json();
-            
-            document.getElementById('movie-details').innerHTML = `
-                <img class="detail-img" src="https://image.tmdb.org/t/p/w500${data.poster_path}">
-                <div class="info">
-                    <h1>${data.title || data.name}</h1>
-                    <p style="color: #ff9d00; margin: 10px 0;">Rating: ${data.vote_average} | Release: ${data.release_date || data.first_air_date}</p>
-                    <p>${data.overview}</p>
-                    
-                    <div class="download-section">
-                        <h3>Download Links (High Quality)</h3>
-                        <a href="#" class="dl-btn">Download 720p [1.2GB]</a>
-                        <a href="#" class="dl-btn">Download 1080p [2.5GB]</a>
+            try {
+                // Fetch Movie Data + Videos + Credits (Cast)
+                const res = await fetch(`https://api.themoviedb.org/3/${type}/${movieId}?api_key=${API_KEY}&append_to_response=videos,credits`);
+                const data = await res.json();
+
+                const genres = data.genres.map(g => `<span class="genre-badge">${g.name}</span>`).join('');
+                const trailer = data.videos.results.find(v => v.type === 'Trailer' && v.site === 'YouTube');
+                const cast = data.credits.cast.slice(0, 8).map(person => `
+                    <div class="cast-card">
+                        <img src="${person.profile_path ? IMG_URL + person.profile_path : 'https://via.placeholder.com/100'}" alt="${person.name}">
+                        <p><b>${person.name}</b></p>
+                        <p style="color:gray; font-size:10px;">${person.character}</p>
                     </div>
-                </div>
-            `;
+                `).join('');
+
+                document.body.style.setProperty('--bg-url', `url(${BACKDROP_URL + data.backdrop_path})`);
+
+                document.getElementById('content-wrapper').innerHTML = `
+                    <header class="detail-header">
+                        <div class="detail-container">
+                            <img class="detail-img" src="${IMG_URL + data.poster_path}" alt="${data.title}">
+                            <div class="info">
+                                <h1>${data.title || data.name}</h1>
+                                <div class="meta">
+                                    <span><i class="fa fa-calendar"></i> ${data.release_date || data.first_air_date}</span> | 
+                                    <span><i class="fa fa-star" style="color:#ff9d00"></i> ${data.vote_average.toFixed(1)}</span>
+                                </div>
+                                <div style="margin-bottom:20px;">${genres}</div>
+                                <p><b>Storyline:</b> ${data.overview}</p>
+                                
+                                <div class="cast-section">
+                                    <h3>Top Cast</h3>
+                                    <div class="cast-grid">${cast}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+
+                    <div style="max-width:1200px; margin:auto; padding: 20px;">
+                        ${trailer ? `
+                        <div class="trailer-section">
+                            <h3>Official Trailer</h3>
+                            <div class="video-container">
+                                <iframe src="https://www.youtube.com/embed/${trailer.key}" allowfullscreen></iframe>
+                            </div>
+                        </div>` : ''}
+
+                        <div class="download-box">
+                            <h2>Download ${data.title || data.name}</h2>
+                            <p>Select your preferred quality below:</p>
+                            <a href="#" class="dl-btn"><i class="fa fa-download"></i> 480p [450MB]</a>
+                            <a href="#" class="dl-btn"><i class="fa fa-download"></i> 720p [1.2GB]</a>
+                            <a href="#" class="dl-btn"><i class="fa fa-download"></i> 1080p [2.8GB]</a>
+                        </div>
+                    </div>
+                `;
+            } catch (error) {
+                console.error("Error loading details:", error);
+            }
         }
         getMovieDetails();
     </script>
 </body>
-  </html>
-  
+</html>
