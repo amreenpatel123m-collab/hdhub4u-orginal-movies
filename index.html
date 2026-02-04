@@ -5,48 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HDHub4u | Download 300mb, 720p, 1080p Movies</title>
     <link rel="icon" type="image/png" href="favicon.png">
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "HDHub4u Original",
-      "url": "https://amreenpatel123m-collab.github.io/hdhub4u-orginal-movies/",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://amreenpatel123m-collab.github.io/hdhub4u-orginal-movies/?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-      }
-    }
-    </script>
-    <meta property="og:title" content="HDHub4u | Download Latest 300mb & HD Movies">
-    <meta property="og:description" content="Download Latest Bollywood, Hollywood, and South Movies for free on HDHub4u Original.">
-    <meta property="og:image" content="https://amreenpatel123m-collab.github.io/hdhub4u-orginal-movies/og-banner.jpg">
-    <meta name="keywords" content="HDHub4u, YouTube, Facebook, WhatsApp Web, Instagram, Google Translate, Gmail, IPL 2026, Indian Premier League, Google Gemini, ICC Champions Trophy, Asia Cup, Pro Kabaddi League, Maha Kumbh Mela, Saiyaara Movie, Kantara A Legend Chapter 1, Coolie, King Shah Rukh Khan, Ramayana Part 1, Dhurandhar 2, Border 2, Toxic, Spirit, Predator Badlands, Five Nights at Freddys 2, Jurassic World Rebirth, Avatar The Way of Water, Wicked For Good, Sinners, F1 Movie, Avengers Doomsday, Dune Part Three, The Odyssey Christopher Nolan, IMDb, Letterboxd, Rotten Tomatoes, Netflix, Amazon Prime Video, Disney Plus Hotstar, JioCinema, Zee5, SonyLIV, Bollywood Movies 2026, Hollywood Hindi Dubbed, 300mb Movies Download, 480p 720p 1080p Movies, HDHub4u Original">
-    <meta name="description" content="HDHub4u: India's No.1 site for Latest Movies. Download Saiyaara, Kantara, King, Ramayana, and Avengers. Watch Netflix, Amazon Prime, and Disney+ Hotstar Web Series for free. Original HDHub4u Movie Site 2026.">
     
+    <meta name="description" content="HDHub4u: India's No.1 site for Latest Movies.">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <h3>HDHUB MENU</h3>
-            <i class="fas fa-times" id="closeMenu"></i>
-        </div>
-        <ul class="sidebar-links">
-            <li onclick="location.reload()"><i class="fas fa-home"></i> Home</li>
-            <li onclick="fetchLiveNews()" style="color: #ff9d00; font-weight: bold;"><i class="fas fa-newspaper"></i> Latest News (Live API)</li>
-            <li onclick="filterMovies('bollywood')"><i class="fas fa-film"></i> Bollywood</li>
-            <li onclick="filterMovies('hollywood')"><i class="fas fa-globe"></i> Hollywood</li>
-            <li onclick="filterMovies('series')"><i class="fas fa-tv"></i> Web Series</li>
-        </ul>
-    </div>
-    <div class="overlay" id="overlay"></div>
 
     <header>
         <div class="main-header">
-            <div class="menu-icon" id="menuToggle" style="font-size: 24px; cursor: pointer; color: white; margin-right: 15px;">
+            <div class="menu-icon" id="menuToggle">
                 <i class="fas fa-bars"></i>
             </div>
             <div class="logo" onclick="location.reload()" style="cursor:pointer;">HDHUB<span>4U</span></div>
@@ -54,19 +22,34 @@
                 <input type="text" id="movieInput" placeholder="Search Movies Here...">
                 <button id="searchBtn"><i class="fa fa-search"></i></button>
             </div>
-            <div id="suggestion-box" class="suggestion-box"></div>
         </div>
         
         <nav class="nav-bar">
             <button class="nav-btn" onclick="filterMovies('home')">Home</button>
-            <button class="nav-btn" onclick="fetchSpecial('popular')">🫠 Popular</button>
-            <button class="nav-btn" onclick="fetchSpecial('upcoming')">😈 Upcoming</button>
+            <button class="nav-btn" onclick="fetchSpecial('popular')">Popular</button>
+            <button class="nav-btn" onclick="fetchSpecial('upcoming')">Upcoming</button>
             <button class="nav-btn" onclick="filterMovies('bollywood')">BollyWood</button>
-            <button class="nav-btn" onclick="filterMovies('hollywood')">HollyWood</button>
-            <button class="nav-btn" onclick="filterMovies('south')">South Hindi</button>
             <button class="nav-btn" onclick="filterMovies('series')">Web Series</button>
         </nav>
     </header>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>HDHUB MENU</h3>
+            <i class="fas fa-times" id="closeMenu"></i>
+        </div>
+        <ul class="sidebar-links">
+            <li onclick="filterMovies('home')"><i class="fas fa-home"></i> Home</li>
+            <li onclick="fetchLiveNews()" style="color: #ff9d00; font-weight: bold;"><i class="fas fa-newspaper"></i> Latest News (Live)</li>
+            <li onclick="filterMovies('bollywood')"><i class="fas fa-film"></i> Bollywood</li>
+            <li onclick="filterMovies('hollywood')"><i class="fas fa-globe"></i> Hollywood</li>
+            <li onclick="filterMovies('series')"><i class="fas fa-tv"></i> Web Series</li>
+            <hr style="border: 0.5px solid #333; margin: 15px 0;">
+            <li><a href="disclaimer.html" style="color:inherit; text-decoration:none;"><i class="fas fa-info-circle"></i> Disclaimer</a></li>
+            <li><a href="privacy.html" style="color:inherit; text-decoration:none;"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+        </ul>
+    </div>
+    <div class="overlay" id="overlay"></div>
 
     <div class="alert-box">Avoid FAKE Copies of HDHub4u. Use our official domain with VPN.</div>
 
@@ -74,30 +57,16 @@
         <div class="container" id="movie-grid"></div>
         <div class="pagination">
             <button id="prev">Previous</button>
-            <span id="pageNumber">Page 1 of 500</span>
+            <span id="pageNumber">Page 1</span>
             <button id="next">Next Page</button>
         </div>
     </main>
 
-    <div style="display:none;">
-        <p>Trending on HDHub4u: YouTube, IPL 2026, Saiyaara Full Movie, King Shah Rukh Khan, Avengers Doomsday...</p>
-    </div>
-
-    <footer style="background: #111; padding: 20px; text-align: center; border-top: 2px solid #e50914; margin-top: 50px;">
-        <p style="color: white;">&copy; 2026 HDHub4u - All Movie Info from TMDB API</p>
-        <div style="margin-top: 10px;">
-            <a href="disclaimer.html" style="color: #bbb; text-decoration: none; margin: 0 10px;">Disclaimer</a> | 
-            <a href="privacy.html" style="color: #bbb; text-decoration: none; margin: 0 10px;">Privacy Policy</a>
-        </div>
+    <footer style="background: #111; padding: 20px; text-align: center; border-top: 2px solid #ff9d00; margin-top: 50px;">
+        <p>&copy; 2026 HDHub4u - All Movie Info from TMDB API</p>
     </footer>
-
-    <section class="news-section">
-        <div class="container">
-            <h2 class="section-title"><i class="fas fa-bolt" style="color: #ffcc00;"></i> Latest Cinema News</h2>
-            <div id="news-grid" class="news-grid"></div>
-        </div>
-    </section>
 
     <script src="js/app.js"></script>
 </body>
-</html>
+                                                        </html>
+                                                                          
