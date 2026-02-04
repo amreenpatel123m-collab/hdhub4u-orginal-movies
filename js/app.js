@@ -92,3 +92,4 @@ async function fetchLiveNews() {
 }
 
 loadMovies(currentUrl, 1);
+        
