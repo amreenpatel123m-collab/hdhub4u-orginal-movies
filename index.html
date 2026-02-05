@@ -143,6 +143,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const overlay = document.getElementById("overlay");
   const closeSidebar = document.getElementById("closeSidebar");
 
+  const openNews = document.getElementById("openNews");
+  const sidebarNews = document.getElementById("sidebar-news");
+
   if (!hamburger || !sidebar || !overlay || !closeSidebar) return;
 
   hamburger.onclick = () => {
@@ -158,6 +161,15 @@ document.addEventListener("DOMContentLoaded", () => {
   overlay.onclick = () => {
     sidebar.classList.remove("active");
     overlay.classList.remove("active");
+  };
+
+  // 🔥 YE PART MISSING THA (IMPORTANT)
+  openNews.onclick = () => {
+    if (sidebarNews.style.display === "none") {
+      sidebarNews.style.display = "block";
+    } else {
+      sidebarNews.style.display = "none";
+    }
   };
 
 });
