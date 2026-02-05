@@ -22,30 +22,41 @@ const closeSidebar = document.getElementById("closeSidebar");
 const openNewsBtn = document.getElementById("openNews");
 const sidebarNews = document.getElementById("sidebar-news");
 
-// ================= SIDEBAR LOGIC (ADDED) =================
-hamburger.onclick = () => {
-  sidebar.classList.add("active");
-  overlay.classList.add("active");
-};
+// ================= SIDEBAR LOGIC (FINAL FIXED) =================
+document.addEventListener("DOMContentLoaded", () => {
 
-closeSidebar.onclick = () => {
-  sidebar.classList.remove("active");
-  overlay.classList.remove("active");
-};
+  const hamburger = document.getElementById("hamburger");
+  const sidebar = document.getElementById("sidebar");
+  const overlay = document.getElementById("overlay");
+  const closeSidebar = document.getElementById("closeSidebar");
+  const openNewsBtn = document.getElementById("openNews");
+  const sidebarNews = document.getElementById("sidebar-news");
 
-overlay.onclick = () => {
-  sidebar.classList.remove("active");
-  overlay.classList.remove("active");
-};
+  if (!hamburger || !sidebar || !overlay) return;
 
-openNewsBtn.onclick = () => {
-  if (sidebarNews.style.display === "none" || sidebarNews.style.display === "") {
-    sidebarNews.style.display = "block";
-  } else {
-    sidebarNews.style.display = "none";
-  }
-};
+  // open sidebar
+  hamburger.addEventListener("click", () => {
+    sidebar.classList.add("active");
+    overlay.classList.add("active");
+  });
 
+  // close sidebar
+  closeSidebar.addEventListener("click", () => {
+    sidebar.classList.remove("active");
+    overlay.classList.remove("active");
+  });
+
+  overlay.addEventListener("click", () => {
+    sidebar.classList.remove("active");
+    overlay.classList.remove("active");
+  });
+
+  // toggle news ( MAIN FIX)
+  openNewsBtn.addEventListener("click", () => {
+    sidebarNews.classList.toggle("show");
+  });
+
+});
 // ================= LOAD MOVIES =================
 async function loadMovies(url, page = 1) {
   try {
