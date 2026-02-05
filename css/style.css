@@ -126,3 +126,25 @@ header { background: #000; padding: 15px 5%; position: sticky; top: 0; z-index: 
 #overlay.active {
   display: block;
               }
+#sidebar-news {
+  margin-top: 15px;
+}
+
+.news-item {
+  background: #1c1c1c;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.news-item h4 {
+  font-size: 14px;
+  color: #ff9d00;
+  margin-bottom: 5px;
+}
+
+.news-item p {
+  font-size: 12px;
+  color: #ccc;
+  line-height: 1.4;
+    }
