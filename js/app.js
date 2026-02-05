@@ -14,7 +14,7 @@ const pageNumText = document.getElementById('pageNumber');
 const movieInput = document.getElementById('movieInput');
 const suggestionBox = document.getElementById('suggestion-box');
 
-// ===== SIDEBAR ELEMENTS (ADDED) =====
+// ================= SIDEBAR ELEMENTS (ADDED) =================
 const hamburger = document.getElementById("hamburger");
 const sidebar = document.getElementById("sidebar");
 const overlay = document.getElementById("overlay");
@@ -38,7 +38,6 @@ overlay.onclick = () => {
   overlay.classList.remove("active");
 };
 
-// Latest News toggle
 openNewsBtn.onclick = () => {
   if (sidebarNews.style.display === "none" || sidebarNews.style.display === "") {
     sidebarNews.style.display = "block";
