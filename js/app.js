@@ -14,6 +14,39 @@ const pageNumText = document.getElementById('pageNumber');
 const movieInput = document.getElementById('movieInput');
 const suggestionBox = document.getElementById('suggestion-box');
 
+// ===== SIDEBAR ELEMENTS (ADDED) =====
+const hamburger = document.getElementById("hamburger");
+const sidebar = document.getElementById("sidebar");
+const overlay = document.getElementById("overlay");
+const closeSidebar = document.getElementById("closeSidebar");
+const openNewsBtn = document.getElementById("openNews");
+const sidebarNews = document.getElementById("sidebar-news");
+
+// ================= SIDEBAR LOGIC (ADDED) =================
+hamburger.onclick = () => {
+  sidebar.classList.add("active");
+  overlay.classList.add("active");
+};
+
+closeSidebar.onclick = () => {
+  sidebar.classList.remove("active");
+  overlay.classList.remove("active");
+};
+
+overlay.onclick = () => {
+  sidebar.classList.remove("active");
+  overlay.classList.remove("active");
+};
+
+// Latest News toggle
+openNewsBtn.onclick = () => {
+  if (sidebarNews.style.display === "none" || sidebarNews.style.display === "") {
+    sidebarNews.style.display = "block";
+  } else {
+    sidebarNews.style.display = "none";
+  }
+};
+
 // ================= LOAD MOVIES =================
 async function loadMovies(url, page = 1) {
   try {
