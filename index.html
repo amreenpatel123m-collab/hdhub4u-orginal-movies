@@ -135,46 +135,6 @@
 <!-- Overlay -->
 <div id="overlay"></div>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-
-  const hamburger = document.getElementById("hamburger");
-  const sidebar = document.getElementById("sidebar");
-  const overlay = document.getElementById("overlay");
-  const closeSidebar = document.getElementById("closeSidebar");
-
-  const openNews = document.getElementById("openNews");
-  const sidebarNews = document.getElementById("sidebar-news");
-
-  if (!hamburger || !sidebar || !overlay || !closeSidebar) return;
-
-  hamburger.onclick = () => {
-    sidebar.classList.add("active");
-    overlay.classList.add("active");
-  };
-
-  closeSidebar.onclick = () => {
-    sidebar.classList.remove("active");
-    overlay.classList.remove("active");
-  };
-
-  overlay.onclick = () => {
-    sidebar.classList.remove("active");
-    overlay.classList.remove("active");
-  };
-
-  // 🔥 YE PART MISSING THA (IMPORTANT)
-  openNews.onclick = () => {
-    if (sidebarNews.style.display === "none") {
-      sidebarNews.style.display = "block";
-    } else {
-      sidebarNews.style.display = "none";
-    }
-  };
-
-});
-</script>
+<script src="js/app.js"></script>
 </body>
-    
-               </html>
-    
+</html>
