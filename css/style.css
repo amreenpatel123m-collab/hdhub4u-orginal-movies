@@ -157,3 +157,38 @@ header { background: #000; padding: 15px 5%; position: sticky; top: 0; z-index: 
 #sidebar-news.show {
   display: block;
           }
+// ================= SIDEBAR LOGIC (FINAL FIXED) =================
+document.addEventListener("DOMContentLoaded", () => {
+
+  const hamburger = document.getElementById("hamburger");
+  const sidebar = document.getElementById("sidebar");
+  const overlay = document.getElementById("overlay");
+  const closeSidebar = document.getElementById("closeSidebar");
+  const openNewsBtn = document.getElementById("openNews");
+  const sidebarNews = document.getElementById("sidebar-news");
+
+  if (!hamburger || !sidebar || !overlay) return;
+
+  // open sidebar
+  hamburger.addEventListener("click", () => {
+    sidebar.classList.add("active");
+    overlay.classList.add("active");
+  });
+
+  // close sidebar
+  closeSidebar.addEventListener("click", () => {
+    sidebar.classList.remove("active");
+    overlay.classList.remove("active");
+  });
+
+  overlay.addEventListener("click", () => {
+    sidebar.classList.remove("active");
+    overlay.classList.remove("active");
+  });
+
+  // toggle news ( MAIN FIX)
+  openNewsBtn.addEventListener("click", () => {
+    sidebarNews.classList.toggle("show");
+  });
+
+});
