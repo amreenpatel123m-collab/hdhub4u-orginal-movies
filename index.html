@@ -119,6 +119,28 @@
 
 <!-- Overlay -->
 <div id="overlay"></div>
+
+    <script>
+  const hamburger = document.getElementById("hamburger");
+  const sidebar = document.getElementById("sidebar");
+  const overlay = document.getElementById("overlay");
+  const closeSidebar = document.getElementById("closeSidebar");
+
+  hamburger.onclick = () => {
+    sidebar.classList.add("active");
+    overlay.classList.add("active");
+  };
+
+  closeSidebar.onclick = () => {
+    sidebar.classList.remove("active");
+    overlay.classList.remove("active");
+  };
+
+  overlay.onclick = () => {
+    sidebar.classList.remove("active");
+    overlay.classList.remove("active");
+  };
+    </script>
 </body>
     
                </html>
