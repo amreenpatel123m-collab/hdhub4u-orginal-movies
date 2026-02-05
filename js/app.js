@@ -29,32 +29,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const sidebar = document.getElementById("sidebar");
   const overlay = document.getElementById("overlay");
   const closeSidebar = document.getElementById("closeSidebar");
-  const openNewsBtn = document.getElementById("openNews");
+  const openNews = document.getElementById("openNews");
   const sidebarNews = document.getElementById("sidebar-news");
 
-  if (!hamburger || !sidebar || !overlay) return;
-
-  // open sidebar
-  hamburger.addEventListener("click", () => {
+  hamburger.onclick = () => {
     sidebar.classList.add("active");
     overlay.classList.add("active");
-  });
+  };
 
-  // close sidebar
-  closeSidebar.addEventListener("click", () => {
+  closeSidebar.onclick = overlay.onclick = () => {
     sidebar.classList.remove("active");
     overlay.classList.remove("active");
-  });
+  };
 
-  overlay.addEventListener("click", () => {
-    sidebar.classList.remove("active");
-    overlay.classList.remove("active");
-  });
-
-  // toggle news ( MAIN FIX)
-  openNewsBtn.addEventListener("click", () => {
+  openNews.onclick = () => {
     sidebarNews.classList.toggle("show");
-  });
+  };
 
 });
 // ================= LOAD MOVIES =================
