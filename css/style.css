@@ -189,6 +189,4 @@ document.addEventListener("DOMContentLoaded", () => {
   // toggle news ( MAIN FIX)
   openNewsBtn.addEventListener("click", () => {
     sidebarNews.classList.toggle("show");
-  });
-
-});
+    });
