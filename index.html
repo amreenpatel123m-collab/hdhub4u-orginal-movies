@@ -135,11 +135,15 @@
 <!-- Overlay -->
 <div id="overlay"></div>
 
-    <script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
   const hamburger = document.getElementById("hamburger");
   const sidebar = document.getElementById("sidebar");
   const overlay = document.getElementById("overlay");
   const closeSidebar = document.getElementById("closeSidebar");
+
+  if (!hamburger || !sidebar || !overlay || !closeSidebar) return;
 
   hamburger.onclick = () => {
     sidebar.classList.add("active");
@@ -155,7 +159,9 @@
     sidebar.classList.remove("active");
     overlay.classList.remove("active");
   };
-    </script>
+
+});
+</script>
 </body>
     
                </html>
