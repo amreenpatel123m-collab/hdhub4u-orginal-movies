@@ -1,99 +1,165 @@
-const API_KEY = '7cf8535c2aa2c745040de291475c23d2'; // TMDB Key
-const NEWS_KEY = '1f4f331fc0224ab5b2c2753ad618bea2'; // Aapki New API Key
+// ================= CONFIG =================
+const API_KEY = '7cf8535c2aa2c745040de291475c23d2';
 const BASE_URL = 'https://api.themoviedb.org/3';
 const IMG_URL = 'https://image.tmdb.org/t/p/w500';
+const currentYear = 2026;
 
 let currentPage = 1;
-let currentUrl = `${BASE_URL}/discover/movie?api_key=${API_KEY}&sort_by=popularity.desc`;
+let currentUrl =
+  `${BASE_URL}/discover/movie?api_key=${API_KEY}&primary_release_year=${currentYear}&sort_by=popularity.desc`;
 
-// Sidebar Toggle
-const menuToggle = document.getElementById('menuToggle');
-const sidebar = document.getElementById('sidebar');
-const overlay = document.getElementById('overlay');
-const closeMenu = document.getElementById('closeMenu');
+// ================= ELEMENTS =================
+const movieGrid = document.getElementById('movie-grid');
+const pageNumText = document.getElementById('pageNumber');
+const movieInput = document.getElementById('movieInput');
+const suggestionBox = document.getElementById('suggestion-box');
 
-function toggleSidebar() {
-    sidebar.classList.toggle('active');
-    overlay.classList.toggle('active');
-}
-
-menuToggle.onclick = toggleSidebar;
-closeMenu.onclick = toggleSidebar;
-overlay.onclick = toggleSidebar;
-
-// 1. Movie Loading Function (Purana Logic)
+// ================= LOAD MOVIES =================
 async function loadMovies(url, page = 1) {
-    const movieGrid = document.getElementById('movie-grid');
-    movieGrid.innerHTML = '<div class="spinner"></div>';
-    try {
-        const res = await fetch(`${url}&page=${page}`);
-        const data = await res.json();
-        displayMovies(data.results);
-        currentPage = page;
-        document.getElementById('pageNumber').innerText = "Page " + currentPage;
-    } catch (err) { console.error("Error loading movies"); }
-}
+  try {
+    const res = await fetch(`${url}&page=${page}`);
+    const data = await res.json();
 
-function displayMovies(movies) {
-    const movieGrid = document.getElementById('movie-grid');
-    movieGrid.innerHTML = '';
-    movies.forEach(movie => {
-        const card = document.createElement('div');
-        card.className = 'movie-card';
-        card.onclick = () => window.location.href = `details.html?id=${movie.id}&type=${movie.title ? 'movie' : 'tv'}`;
-        card.innerHTML = `
-            <div class="hindi-label">HINDI DUBBED</div>
-            <img src="${movie.poster_path ? IMG_URL + movie.poster_path : 'https://via.placeholder.com/200x300'}">
-            <div class="movie-info">
-                <h4>${movie.title || movie.name}</h4>
-                <div class="action-btns"><div class="btn-dl">Download</div><div class="btn-wt">Watch</div></div>
-            </div>`;
-        movieGrid.appendChild(card);
-    });
-}
-
-// 2. NEW: News API Function (Using your Key)
-async function fetchLiveNews() {
-    toggleSidebar(); // Menu band karein
-    const movieGrid = document.getElementById('movie-grid');
-    movieGrid.innerHTML = '<div class="spinner"></div><p style="text-align:center;width:100%">Loading Latest Bollywood & Cricket News...</p>';
-    
-    const url = `https://newsapi.org/v2/everything?q=bollywood+cricket&language=hi&sortBy=publishedAt&apiKey=${NEWS_KEY}`;
-
-    try {
-        const res = await fetch(url);
-        const data = await res.json();
-        movieGrid.innerHTML = '<h2 style="width:100%; text-align:center; color:#ff9d00; margin:20px 0;">🔥 Live Cinema & Sports News</h2>';
-        
-        data.articles.slice(0, 18).forEach(article => {
-            const card = document.createElement('div');
-            card.className = 'movie-card';
-            card.style.height = "auto";
-            card.innerHTML = `
-                <span class="news-tag" style="position:absolute; top:10px; left:10px; background:#ff9d00; padding:2px 5px; color:black; font-size:10px; border-radius:3px; z-index:10;">LATEST NEWS</span>
-                <img src="${article.urlToImage || 'https://via.placeholder.com/300x200'}" style="height:150px; object-fit:cover;">
-                <div class="movie-info" style="text-align:left; padding:10px;">
-                    <h4 style="font-size:12px; height:auto; color:white;">${article.title}</h4>
-                    <p style="font-size:10px; color:#aaa; margin:5px 0;">Source: ${article.source.name}</p>
-                    <a href="${article.url}" target="_blank" style="color:#ff9d00; font-size:11px; text-decoration:none; font-weight:bold;">READ MORE →</a>
-                </div>`;
-            movieGrid.appendChild(card);
-        });
-    } catch (e) {
-        movieGrid.innerHTML = '<p style="text-align:center;width:100%">News currently unavailable. Try later!</p>';
+    if (data.results) {
+      displayMovies(data.results);
+      currentPage = page;
+      pageNumText.innerText = `Page ${currentPage}`;
     }
+  } catch (err) {
+    console.error('Movie fetch failed', err);
+  }
 }
 
-// Search, Filter & Pagination Logic (Purana)
+// ================= DISPLAY MOVIES =================
+function displayMovies(movies) {
+  movieGrid.innerHTML = '';
+
+  movies.forEach(movie => {
+    if (!movie.poster_path) return;
+
+    const title = movie.title || movie.name;
+    const releaseDate =
+      (movie.release_date || movie.first_air_date || currentYear)
+        .split('-')[0];
+
+    const card = document.createElement('div');
+    card.className = 'movie-card';
+
+    card.onclick = () => {
+      window.location.href =
+        `details.html?id=${movie.id}&type=${movie.title ? 'movie' : 'tv'}`;
+    };
+
+    card.innerHTML = `
+      <div class="hindi-label">HINDI DUBBED</div>
+      <div class="quality">4K | 1080p</div>
+      <img src="${IMG_URL + movie.poster_path}" alt="${title}">
+      <div class="movie-info">
+        <h4>${title} (${releaseDate})</h4>
+        <div class="action-btns">
+          <div class="btn-dl">Download</div>
+          <div class="btn-wt">Watch Online</div>
+        </div>
+      </div>
+    `;
+
+    movieGrid.appendChild(card);
+  });
+
+  window.scrollTo(0, 0);
+}
+
+// ================= SEARCH SUGGESTIONS =================
+movieInput.addEventListener('input', async () => {
+  const term = movieInput.value.trim();
+
+  if (term.length < 2) {
+    suggestionBox.style.display = 'none';
+    return;
+  }
+
+  try {
+    const res = await fetch(
+      `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(term)}`
+    );
+    const data = await res.json();
+
+    suggestionBox.innerHTML = '';
+
+    if (data.results?.length) {
+      data.results.slice(0, 6).forEach(movie => {
+        const div = document.createElement('div');
+        div.className = 'suggestion-item';
+
+        div.innerHTML = `
+          <img src="${movie.poster_path ? IMG_URL + movie.poster_path : 'https://via.placeholder.com/30x40'}">
+          <span>${movie.title} (${(movie.release_date || 'N/A').split('-')[0]})</span>
+        `;
+
+        div.onclick = () => {
+          movieInput.value = movie.title;
+          suggestionBox.style.display = 'none';
+          performSearch();
+        };
+
+        suggestionBox.appendChild(div);
+      });
+
+      suggestionBox.style.display = 'block';
+    }
+  } catch {
+    console.log('Suggestion error');
+  }
+});
+
+// hide suggestion on outside click
+document.addEventListener('click', e => {
+  if (e.target !== movieInput) {
+    suggestionBox.style.display = 'none';
+  }
+});
+
+// ================= SEARCH =================
+function performSearch() {
+  const term = movieInput.value.trim();
+  if (!term) return;
+
+  currentUrl =
+    `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(term)}`;
+  loadMovies(currentUrl, 1);
+}
+
+document.getElementById('searchBtn').addEventListener('click', performSearch);
+
+// ================= FILTERS =================
 function filterMovies(type) {
-    if(type === 'bollywood') currentUrl = `${BASE_URL}/discover/movie?api_key=${API_KEY}&with_original_language=hi`;
-    else if(type === 'series') currentUrl = `${BASE_URL}/discover/tv?api_key=${API_KEY}`;
-    else currentUrl = `${BASE_URL}/discover/movie?api_key=${API_KEY}&sort_by=popularity.desc`;
-    loadMovies(currentUrl, 1);
+  if (type === 'bollywood') {
+    currentUrl =
+      `${BASE_URL}/discover/movie?api_key=${API_KEY}&with_original_language=hi&primary_release_year=${currentYear}`;
+  } else if (type === 'south') {
+    currentUrl =
+      `${BASE_URL}/discover/movie?api_key=${API_KEY}&with_original_language=te|ta|ml|kn&primary_release_year=${currentYear}`;
+  } else if (type === 'series') {
+    currentUrl =
+      `${BASE_URL}/discover/tv?api_key=${API_KEY}&first_air_date_year=${currentYear}`;
+  } else if (type === 'hollywood') {
+    currentUrl =
+      `${BASE_URL}/discover/movie?api_key=${API_KEY}&with_original_language=en&primary_release_year=${currentYear}`;
+  } else {
+    currentUrl =
+      `${BASE_URL}/discover/movie?api_key=${API_KEY}&primary_release_year=${currentYear}&sort_by=popularity.desc`;
+  }
+
+  loadMovies(currentUrl, 1);
 }
 
-document.getElementById('next').onclick = () => loadMovies(currentUrl, currentPage + 1);
-document.getElementById('prev').onclick = () => { if(currentPage > 1) loadMovies(currentUrl, currentPage - 1); };
+// ================= PAGINATION =================
+document.getElementById('next').onclick = () =>
+  loadMovies(currentUrl, currentPage + 1);
 
+document.getElementById('prev').onclick = () => {
+  if (currentPage > 1) loadMovies(currentUrl, currentPage - 1);
+};
+
+// ================= INIT =================
 loadMovies(currentUrl, 1);
-                          
