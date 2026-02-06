@@ -1,157 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>HDHub4u | Legal Movie Streaming</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Watch Movie Online | HDHub4u</title>
-
-  <meta name="description" content="Watch movies online legally using official and publicly available sources. HDHub4u does not host any files.">
-  <meta name="robots" content="index, follow">
-
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-  <style>
-    body { background:#0f0f0f; color:#fff; font-family:'Segoe UI',sans-serif; }
-    .hero-bg {
-      height:420px;
-      background-size:cover;
-      background-position:center;
-      filter:blur(8px) brightness(0.4);
-      position:absolute;
-      width:100%;
-      z-index:-1;
-    }
-    .main-container { max-width:1100px; margin:50px auto; padding:20px; }
-    .movie-header {
-      display:flex; gap:30px; flex-wrap:wrap;
-      background:rgba(0,0,0,0.6);
-      padding:20px; border-radius:15px;
-    }
-    .poster-box { width:300px; position:relative; }
-    .poster-box img {
-      width:100%; border-radius:10px;
-      border:3px solid #ff9d00;
-    }
-    .hindi-tag {
-      position:absolute; top:10px; left:-10px;
-      background:red; color:#fff;
-      padding:5px 15px; font-weight:bold;
-      transform:rotate(-5deg);
-    }
-    .movie-specs {
-      background:#222; padding:15px;
-      border-radius:10px; margin:20px 0;
-      display:grid; grid-template-columns:1fr 1fr;
-      gap:10px; font-size:14px;
-    }
-    .specs-item { color:#ff9d00; font-weight:bold; }
-
-    .screenshot-grid {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:15px; margin:20px 0;
-    }
-    .screenshot-grid img {
-      width:100%; border-radius:8px;
-      border:1px solid #444;
-    }
-
-    h3 {
-      border-left:5px solid #ff9d00;
-      padding-left:10px;
-      margin:30px 0 15px;
-      color:#ff9d00;
-    }
-
-    .watch-box {
-      background:#111;
-      padding:20px;
-      border-radius:15px;
-      border:1px solid #333;
-    }
-
-    .disclaimer {
-      font-size:13px;
-      color:#aaa;
-      margin-top:10px;
-      line-height:1.5;
-    }
-  </style>
+<meta name="description" content="Watch movies online legally. We do not host any files.">
+<link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-<div id="hero" class="hero-bg"></div>
+<header>
+  <h1 class="logo">HDHub<span>4U</span></h1>
+</header>
 
-<div class="main-container" id="details-content"></div>
+<main>
+  <div id="movie-grid" class="grid"></div>
+</main>
 
-<script>
-const API_KEY = "7cf8535c2aa2c745040de291475c23d2";
-const params = new URLSearchParams(window.location.search);
-const id = params.get("id");
-const type = params.get("type") || "movie";
+<footer>
+  <p>All movie data from TMDB. Videos from Internet Archive.</p>
+</footer>
 
-async function fetchDetails() {
-  const res = await fetch(
-    `https://api.themoviedb.org/3/${type}/${id}?api_key=${API_KEY}&append_to_response=videos,images`
-  );
-  const data = await res.json();
-
-  document.getElementById("hero").style.backgroundImage =
-    `url(https://image.tmdb.org/t/p/original${data.backdrop_path})`;
-
-  const screenshots = data.images.backdrops
-    .slice(1,5)
-    .map(img => `<img loading="lazy" src="https://image.tmdb.org/t/p/w500${img.file_path}">`)
-    .join("");
-
-  const trailer = data.videos.results.find(v => v.site === "YouTube" && v.type === "Trailer");
-
-  document.getElementById("details-content").innerHTML = `
-    <div class="movie-header">
-      <div class="poster-box">
-        <div class="hindi-tag">HINDI DUBBED</div>
-        <img src="https://image.tmdb.org/t/p/w500${data.poster_path}">
-      </div>
-
-      <div style="flex:1">
-        <h1>${data.title || data.name}</h1>
-        <p style="margin:15px 0;color:#bbb">${data.overview}</p>
-
-        <div class="movie-specs">
-          <div><span class="specs-item">Release:</span> ${data.release_date || data.first_air_date}</div>
-          <div><span class="specs-item">Rating:</span> ⭐ ${data.vote_average?.toFixed(1)}</div>
-          <div><span class="specs-item">Language:</span> Hindi / Original</div>
-          <div><span class="specs-item">Source:</span> Official</div>
-        </div>
-      </div>
-    </div>
-
-    <h3>Screenshots</h3>
-    <div class="screenshot-grid">${screenshots}</div>
-
-    ${trailer ? `
-    <h3>Watch Online (Official Trailer)</h3>
-    <div class="watch-box">
-      <iframe width="100%" height="450"
-        src="https://www.youtube.com/embed/${trailer.key}"
-        frameborder="0" allowfullscreen loading="lazy">
-      </iframe>
-
-      <p class="disclaimer">
-        ⚠️ We do not host any video files on our servers.
-        All videos are embedded from official and publicly available sources.
-        Credits go to the respective owners.
-      </p>
-    </div>
-    ` : ""}
-  `;
-}
-
-fetchDetails();
-</script>
-
+<script src="js/app.js"></script>
 </body>
 </html>
