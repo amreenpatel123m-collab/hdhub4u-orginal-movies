@@ -3,33 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HDHub4u | Download 300mb, 720p, 1080p Movies</title>
 
-<link rel="icon" type="image/png" href="favicon.png">
-
-<script type="application/ld+json">
-{
-"@context": "https://schema.org",
-"@type": "WebSite",
-"name": "HDHub4u Original",
-"url": "https://amreenpatel123m-collab.github.io/hdhub4u-orginal-movies/",
-"potentialAction": {
-"@type": "SearchAction",
-"target": "https://amreenpatel123m-collab.github.io/hdhub4u-orginal-movies/?q={search_term_string}",
-"query-input": "required name=search_term_string"
-}
-}
-</script>
-
-<meta property="og:title" content="HDHub4u | Download Latest 300mb & HD Movies">
-<meta property="og:description" content="Download Latest Bollywood, Hollywood, and South Movies for free on HDHub4u Original.">
-<meta property="og:image" content="https://amreenpatel123m-collab.github.io/hdhub4u-orginal-movies/og-banner.jpg">
-<meta property="og:url" content="https://amreenpatel123m-collab.github.io/hdhub4u-orginal-movies/">
-<meta property="og:type" content="website">
-
-<meta name="keywords" content="HDHub4u, YouTube, Facebook, WhatsApp Web, Instagram, Google Translate, Gmail, IPL 2026, Indian Premier League, Google Gemini, ICC Champions Trophy, Asia Cup, Pro Kabaddi League, Maha Kumbh Mela, Saiyaara Movie, Kantara A Legend Chapter 1, Coolie, King Shah Rukh Khan, Ramayana Part 1, Dhurandhar 2, Border 2, Toxic, Spirit, Predator Badlands, Five Nights at Freddys 2, Jurassic World Rebirth, Avatar The Way of Water, Wicked For Good, Sinners, F1 Movie, Avengers Doomsday, Dune Part Three, The Odyssey Christopher Nolan, IMDb, Letterboxd, Rotten Tomatoes, Netflix, Amazon Prime Video, Disney Plus Hotstar, JioCinema, Zee5, SonyLIV, Bollywood Movies 2026, Hollywood Hindi Dubbed, 300mb Movies Download, 480p 720p 1080p Movies, HDHub4u Original">
-
-<meta name="description" content="HDHub4u: India's No.1 site for Latest Movies. Download Saiyaara, Kantara, King, Ramayana, and Avengers. Watch Netflix, Amazon Prime, and Disney+ Hotstar Web Series for free. Original HDHub4u Movie Site 2026.">
+<title>Watch Movie Online | HDHub4u</title>
+<meta name="description" content="Watch movies online legally using public domain and licensed sources. We do not host any files.">
+<meta name="robots" content="index, follow">
 
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -37,79 +14,79 @@
 
 <body>
 
-<header>
-<div class="main-header">
-<div class="logo" onclick="location.reload()" style="cursor:pointer;">HDHUB<span>4U</span></div>
+<div id="hero" class="hero-bg"></div>
 
-<div class="search-box">
-<input type="text" id="movieInput" placeholder="Search Movies Here...">
-<button id="searchBtn"><i class="fa fa-search"></i></button>
-</div>
-</div>
+<div class="main-container" id="details-content"></div>
 
-<nav class="nav-bar">
-<button class="nav-btn" onclick="filterMovies('home')">Home</button>
-<button class="nav-btn" onclick="fetchSpecial('popular')">🫠 Popular</button>
-<button class="nav-btn" onclick="fetchSpecial('upcoming')">😈 Upcoming</button>
-<button class="nav-btn" onclick="filterMovies('bollywood')">BollyWood</button>
-<button class="nav-btn" onclick="filterMovies('hollywood')">HollyWood</button>
-<button class="nav-btn" onclick="filterMovies('south')">South Hindi</button>
-<button class="nav-btn" onclick="filterMovies('series')">Web Series</button>
-</nav>
-</header>
+<script>
+const API_KEY = "7cf8535c2aa2c745040de291475c23d2";
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+const type = params.get("type") || "movie";
 
-<div class="alert-box">
-Avoid FAKE Copies of HDHub4u. Use our official domain with VPN.
-</div>
+/* 🔥 STREAM MAP (LEGAL SOURCES ONLY) */
+const STREAM_MAP = {
+  "default": "https://archive.org/embed/NightOfTheLivingDead_201610"
+};
 
-<main id="main-content">
-<div class="container" id="movie-grid"></div>
+async function fetchDetails() {
+  const res = await fetch(
+    `https://api.themoviedb.org/3/${type}/${id}?api_key=${API_KEY}&append_to_response=images`
+  );
+  const data = await res.json();
 
-<div class="pagination">
-<button id="prev">Previous</button>
-<span id="pageNumber">Page 1 of 500</span>
-<button id="next">Next Page</button>
-</div>
-</main>
+  document.getElementById("hero").style.backgroundImage =
+    `url(https://image.tmdb.org/t/p/original${data.backdrop_path})`;
 
-<div style="display:none;">
-<p>Trending on HDHub4u: YouTube, IPL 2026, Saiyaara Full Movie, King Shah Rukh Khan,
-Avengers Doomsday, Netflix Series, Amazon Prime Video, 300mb Movies Download,
-Kantara A Legend, Ramayana Part 1, Indian Premier League Live, HDHub4u Original site.</p>
-</div>
+  const screenshots = data.images.backdrops
+    .slice(1,5)
+    .map(img => `<img loading="lazy" src="https://image.tmdb.org/t/p/w500${img.file_path}">`)
+    .join("");
 
+  document.getElementById("details-content").innerHTML = `
+    <div class="movie-header">
+      <div class="poster-box">
+        <div class="hindi-tag">LEGAL STREAM</div>
+        <img src="https://image.tmdb.org/t/p/w500${data.poster_path}">
+      </div>
 
-<footer style="background:#111;padding:20px;text-align:center;border-top:2px solid #e50914;margin-top:50px;">
-<p style="color:white;">&copy; 2026 HDHub4u - All Movie Info from TMDB API</p>
-</footer>
+      <div style="flex:1">
+        <h1>${data.title || data.name}</h1>
+        <p style="color:#bbb;margin:15px 0;">${data.overview}</p>
 
-<section class="news-section">
-<div class="container">
-<h2 class="section-title"><i class="fas fa-bolt"></i> Latest Cinema News</h2>
-<div id="news-grid" class="news-grid"></div>
-</div>
-</section>
+        <div class="movie-specs">
+          <div><span class="specs-item">Release:</span> ${data.release_date || "N/A"}</div>
+          <div><span class="specs-item">Rating:</span> ⭐ ${data.vote_average}</div>
+          <div><span class="specs-item">Source:</span> Internet Archive</div>
+          <div><span class="specs-item">License:</span> Public / Allowed</div>
+        </div>
+      </div>
+    </div>
 
-<div id="hamburger">
-<i class="fas fa-bars"></i>
-</div>
+    <h3>Screenshots</h3>
+    <div class="screenshot-grid">${screenshots}</div>
 
-<div id="sidebar">
-<div class="sidebar-header">
-<h3>HDHub4u</h3>
-<span id="closeSidebar">&times;</span>
-</div>
+    <h3>Watch Online</h3>
+    <div class="watch-box">
+      <iframe 
+        src="${STREAM_MAP.default}"
+        width="100%"
+        height="460"
+        frameborder="0"
+        allowfullscreen>
+      </iframe>
 
-<button class="sidebar-btn" id="openNews">📰 Latest News</button>
+      <p class="disclaimer">
+        ⚠️ Disclaimer: We do not host any files. All videos are streamed from
+        publicly available and licensed sources. Credit goes to the original
+        content owners.
+      </p>
+    </div>
+  `;
+}
 
-<div id="sidebar-news">
-<div class="news-item">...</div>
-</div>
-</div>
-
-<div id="overlay"></div>
-
-<script src="js/app.js"></script>
+fetchDetails();
+</script>
 
 </body>
-    </html>
+</html>
