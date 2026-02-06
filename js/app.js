@@ -1,59 +1,55 @@
 const API_KEY = "7cf8535c2aa2c745040de291475c23d2";
-const IMG = "https://image.tmdb.org/t/p/w500";
+const container = document.getElementById("movies");
 
-// ---------- HOME ----------
-if (document.getElementById("movie-grid")) {
-  fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`)
-    .then(res => res.json())
-    .then(data => showMovies(data.results));
-}
+// Internet Archive – public domain movies
+const IA_URL = `
+https://archive.org/advancedsearch.php?q=
+mediatype:(movies)
+AND collection:(feature_films)
+&fl[]=identifier
+&fl[]=title
+&rows=24
+&page=1
+&output=json
+`;
 
-function showMovies(movies) {
-  const grid = document.getElementById("movie-grid");
-  grid.innerHTML = "";
+fetch(IA_URL)
+.then(res => res.json())
+.then(data => {
+  data.response.docs.forEach(movie => {
+    if(movie.title){
+      searchTMDB(movie.title, movie.identifier);
+    }
+  });
+});
 
-  movies.forEach(m => {
-    if (!m.poster_path) return;
+function searchTMDB(title, identifier){
+  const url = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(title)}`;
 
-    const div = document.createElement("div");
-    div.className = "card";
-    div.innerHTML = `
-      <img src="${IMG + m.poster_path}">
-      <h4>${m.title}</h4>
-    `;
-    div.onclick = () => {
-      location.href = `details.html?id=${m.id}`;
-    };
-    grid.appendChild(div);
+  fetch(url)
+  .then(res => res.json())
+  .then(data => {
+    if(data.results && data.results.length > 0){
+      const m = data.results[0];
+      if(m.poster_path){
+        showMovie(m.title, m.poster_path, identifier);
+      }
+    }
   });
 }
 
-// ---------- DETAILS ----------
-if (document.getElementById("details")) {
-  const id = new URLSearchParams(location.search).get("id");
+function showMovie(title, poster, identifier){
+  const card = document.createElement("div");
+  card.className = "card";
 
-  fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}`)
-    .then(res => res.json())
-    .then(movie => loadDetails(movie));
-}
-
-function loadDetails(movie) {
-  const box = document.getElementById("details");
-
-  box.innerHTML = `
-    <h2>${movie.title}</h2>
-    <img src="${IMG + movie.poster_path}" class="poster">
-    <p>${movie.overview}</p>
-
-    <h3>Watch Online</h3>
-    <iframe
-      src="https://archive.org/embed/night_of_the_living_dead"
-      width="100%"
-      height="420"
-      frameborder="0"
-      allowfullscreen>
-    </iframe>
-
-    <p class="source">Source: Internet Archive (Public Domain)</p>
+  card.innerHTML = `
+    <img src="https://image.tmdb.org/t/p/w500${poster}">
+    <h3>${title}</h3>
   `;
+
+  card.onclick = () => {
+    window.location.href = `details.html?id=${identifier}`;
+  };
+
+  container.appendChild(card);
 }
