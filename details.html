@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<div class="player-box" id="player"></div>
+<div id="player"></div>
 
 <script>
 const params = new URLSearchParams(window.location.search);
@@ -24,12 +24,12 @@ if(id){
       allowfullscreen>
     </iframe>
 
-    <p class="note">
+    <p style="color:#aaa; text-align:center; font-size:13px;">
       Source: Internet Archive (Public Domain)
     </p>
   `;
 }else{
-  document.getElementById("player").innerHTML = "Movie not available legally.";
+  document.getElementById("player").innerText = "Movie not found.";
 }
 </script>
 
