@@ -5,27 +5,19 @@ const IMG_URL = 'https://image.tmdb.org/t/p/w500';
 const currentYear = 2026;
 
 let currentPage = 1;
+
 let currentUrl =
   `${BASE_URL}/discover/movie?api_key=${API_KEY}&primary_release_year=${currentYear}&sort_by=popularity.desc`;
-
 // ================= ELEMENTS =================
 const movieGrid = document.getElementById('movie-grid');
 const pageNumText = document.getElementById('pageNumber');
 const movieInput = document.getElementById('movieInput');
 const suggestionBox = document.getElementById('suggestion-box');
 
-// ================= SIDEBAR ELEMENTS (ADDED) =================
-const hamburger = document.getElementById("hamburger");
-const sidebar = document.getElementById("sidebar");
-const overlay = document.getElementById("overlay");
-const closeSidebar = document.getElementById("closeSidebar");
-const openNewsBtn = document.getElementById("openNews");
-const sidebarNews = document.getElementById("sidebar-news");
-
-// ================= SIDEBAR LOGIC (FINAL FIXED) =================
+// ================= SIDEBAR LOGIC =================
 document.addEventListener("DOMContentLoaded", () => {
 
-  const hamburger = document.getElementById("hamburger");
+  const hamburger = document.getElementById("hamburger"); 
   const sidebar = document.getElementById("sidebar");
   const overlay = document.getElementById("overlay");
   const closeSidebar = document.getElementById("closeSidebar");
@@ -47,17 +39,23 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
 });
+
 // ================= LOAD MOVIES =================
 async function loadMovies(url, page = 1) {
   try {
-    const res = await fetch(`${url}&page=${page}`);
+    const res = await fetch(`${url}&page=${page}`); // backtick zaroori
     const data = await res.json();
 
-    if (data.results) {
+    if (data && data.results) {
       displayMovies(data.results);
+
       currentPage = page;
-      pageNumText.innerText = `Page ${currentPage}`;
+
+      if (typeof pageNumText !== "undefined") {
+        pageNumText.innerText = `Page ${currentPage}`;
+      }
     }
+
   } catch (err) {
     console.error('Movie fetch failed', err);
   }
@@ -142,13 +140,6 @@ movieInput.addEventListener('input', async () => {
     }
   } catch {
     console.log('Suggestion error');
-  }
-});
-
-// hide suggestion on outside click
-document.addEventListener('click', e => {
-  if (e.target !== movieInput) {
-    suggestionBox.style.display = 'none';
   }
 });
 
