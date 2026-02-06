@@ -2,90 +2,27 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<title>HDHub4u | Legal Movie Streaming</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Watch Movie Online | HDHub4u</title>
-<meta name="description" content="Watch movies online legally using public domain and licensed sources. We do not host any files.">
-<meta name="robots" content="index, follow">
-
+<meta name="description" content="Watch movies online legally. We do not host any files.">
 <link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
 
-<div id="hero" class="hero-bg"></div>
+<header>
+  <h1 class="logo">HDHub<span>4U</span></h1>
+</header>
 
-<div class="main-container" id="details-content"></div>
+<main>
+  <div id="movie-grid" class="grid"></div>
+</main>
 
-<script>
-const API_KEY = "7cf8535c2aa2c745040de291475c23d2";
-const params = new URLSearchParams(window.location.search);
-const id = params.get("id");
-const type = params.get("type") || "movie";
+<footer>
+  <p>All movie data from TMDB. Videos from Internet Archive.</p>
+</footer>
 
-/* 🔥 STREAM MAP (LEGAL SOURCES ONLY) */
-const STREAM_MAP = {
-  "default": "https://archive.org/embed/NightOfTheLivingDead_201610"
-};
-
-async function fetchDetails() {
-  const res = await fetch(
-    `https://api.themoviedb.org/3/${type}/${id}?api_key=${API_KEY}&append_to_response=images`
-  );
-  const data = await res.json();
-
-  document.getElementById("hero").style.backgroundImage =
-    `url(https://image.tmdb.org/t/p/original${data.backdrop_path})`;
-
-  const screenshots = data.images.backdrops
-    .slice(1,5)
-    .map(img => `<img loading="lazy" src="https://image.tmdb.org/t/p/w500${img.file_path}">`)
-    .join("");
-
-  document.getElementById("details-content").innerHTML = `
-    <div class="movie-header">
-      <div class="poster-box">
-        <div class="hindi-tag">LEGAL STREAM</div>
-        <img src="https://image.tmdb.org/t/p/w500${data.poster_path}">
-      </div>
-
-      <div style="flex:1">
-        <h1>${data.title || data.name}</h1>
-        <p style="color:#bbb;margin:15px 0;">${data.overview}</p>
-
-        <div class="movie-specs">
-          <div><span class="specs-item">Release:</span> ${data.release_date || "N/A"}</div>
-          <div><span class="specs-item">Rating:</span> ⭐ ${data.vote_average}</div>
-          <div><span class="specs-item">Source:</span> Internet Archive</div>
-          <div><span class="specs-item">License:</span> Public / Allowed</div>
-        </div>
-      </div>
-    </div>
-
-    <h3>Screenshots</h3>
-    <div class="screenshot-grid">${screenshots}</div>
-
-    <h3>Watch Online</h3>
-    <div class="watch-box">
-      <iframe 
-        src="${STREAM_MAP.default}"
-        width="100%"
-        height="460"
-        frameborder="0"
-        allowfullscreen>
-      </iframe>
-
-      <p class="disclaimer">
-        ⚠️ Disclaimer: We do not host any files. All videos are streamed from
-        publicly available and licensed sources. Credit goes to the original
-        content owners.
-      </p>
-    </div>
-  `;
-}
-
-fetchDetails();
 <script src="js/app.js"></script>
 </body>
 </html>
