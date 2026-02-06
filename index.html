@@ -1,140 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>HDHub4u | Download 300mb, 720p, 1080p Movies</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HDHub4u | Download 300mb, 720p, 1080p Movies</title>
 
-    <link rel="icon" type="image/png" href="favicon.png">
+<link rel="icon" type="image/png" href="favicon.png">
 
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "HDHub4u Original",
-      "url": "https://amreenpatel123m-collab.github.io/hdhub4u-orginal-movies/",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://amreenpatel123m-collab.github.io/hdhub4u-orginal-movies/?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-      }
-    }
-    </script>
+<script type="application/ld+json">
+{
+"@context": "https://schema.org",
+"@type": "WebSite",
+"name": "HDHub4u Original",
+"url": "https://amreenpatel123m-collab.github.io/hdhub4u-orginal-movies/",
+"potentialAction": {
+"@type": "SearchAction",
+"target": "https://amreenpatel123m-collab.github.io/hdhub4u-orginal-movies/?q={search_term_string}",
+"query-input": "required name=search_term_string"
+}
+}
+</script>
 
-    <meta property="og:title" content="HDHub4u | Download Latest 300mb & HD Movies">
-    <meta property="og:description" content="Download Latest Bollywood, Hollywood, and South Movies for free on HDHub4u Original.">
-    <meta property="og:image" content="https://amreenpatel123m-collab.github.io/hdhub4u-orginal-movies/og-banner.jpg">
-    <meta property="og:url" content="https://amreenpatel123m-collab.github.io/hdhub4u-orginal-movies/">
-    <meta property="og:type" content="website">
-    <meta name="keywords" content="HDHub4u, YouTube, Facebook, WhatsApp Web, Instagram, Google Translate, Gmail, IPL 2026, Indian Premier League, Google Gemini, ICC Champions Trophy, Asia Cup, Pro Kabaddi League, Maha Kumbh Mela, Saiyaara Movie, Kantara A Legend Chapter 1, Coolie, King Shah Rukh Khan, Ramayana Part 1, Dhurandhar 2, Border 2, Toxic, Spirit, Predator Badlands, Five Nights at Freddys 2, Jurassic World Rebirth, Avatar The Way of Water, Wicked For Good, Sinners, F1 Movie, Avengers Doomsday, Dune Part Three, The Odyssey Christopher Nolan, IMDb, Letterboxd, Rotten Tomatoes, Netflix, Amazon Prime Video, Disney Plus Hotstar, JioCinema, Zee5, SonyLIV, Bollywood Movies 2026, Hollywood Hindi Dubbed, 300mb Movies Download, 480p 720p 1080p Movies, HDHub4u Original">
-    <meta name="description" content="HDHub4u: India's No.1 site for Latest Movies. Download Saiyaara, Kantara, King, Ramayana, and Avengers. Watch Netflix, Amazon Prime, and Disney+ Hotstar Web Series for free. Original HDHub4u Movie Site 2026.">
-    
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<meta property="og:title" content="HDHub4u | Download Latest 300mb & HD Movies">
+<meta property="og:description" content="Download Latest Bollywood, Hollywood, and South Movies for free on HDHub4u Original.">
+<meta property="og:image" content="https://amreenpatel123m-collab.github.io/hdhub4u-orginal-movies/og-banner.jpg">
+<meta property="og:url" content="https://amreenpatel123m-collab.github.io/hdhub4u-orginal-movies/">
+<meta property="og:type" content="website">
+
+<meta name="keywords" content="HDHub4u, YouTube, Facebook, WhatsApp Web, Instagram, Google Translate, Gmail, IPL 2026, Indian Premier League, Google Gemini, ICC Champions Trophy, Asia Cup, Pro Kabaddi League, Maha Kumbh Mela, Saiyaara Movie, Kantara A Legend Chapter 1, Coolie, King Shah Rukh Khan, Ramayana Part 1, Dhurandhar 2, Border 2, Toxic, Spirit, Predator Badlands, Five Nights at Freddys 2, Jurassic World Rebirth, Avatar The Way of Water, Wicked For Good, Sinners, F1 Movie, Avengers Doomsday, Dune Part Three, The Odyssey Christopher Nolan, IMDb, Letterboxd, Rotten Tomatoes, Netflix, Amazon Prime Video, Disney Plus Hotstar, JioCinema, Zee5, SonyLIV, Bollywood Movies 2026, Hollywood Hindi Dubbed, 300mb Movies Download, 480p 720p 1080p Movies, HDHub4u Original">
+
+<meta name="description" content="HDHub4u: India's No.1 site for Latest Movies. Download Saiyaara, Kantara, King, Ramayana, and Avengers. Watch Netflix, Amazon Prime, and Disney+ Hotstar Web Series for free. Original HDHub4u Movie Site 2026.">
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <body>
-    <header>
-        <div class="main-header">
-            <div class="logo" onclick="location.reload()" style="cursor:pointer;">HDHUB<span>4U</span></div>
-            <div class="search-box">
-                <input type="text" id="movieInput" placeholder="Search Movies Here...">
-                <button id="searchBtn"><i class="fa fa-search"></i></button>
-            </div>
-        </div>
-        
-        <nav class="nav-bar">
-            <button class="nav-btn" onclick="filterMovies('home')">Home</button>
-            <button class="nav-btn" onclick="fetchSpecial('popular')">🫠 Popular</button>
-            <button class="nav-btn" onclick="fetchSpecial('upcoming')">😈 Upcoming</button>
-            <button class="nav-btn" onclick="filterMovies('bollywood')">BollyWood</button>
-            <button class="nav-btn" onclick="filterMovies('hollywood')">HollyWood</button>
-            <button class="nav-btn" onclick="filterMovies('south')">South Hindi</button>
-            <button class="nav-btn" onclick="filterMovies('series')">Web Series</button>
-        </nav>
-    </header>
 
-    <div class="alert-box">
-        Avoid FAKE Copies of HDHub4u. Use our official domain with VPN.
-    </div>
+<header>
+<div class="main-header">
+<div class="logo" onclick="location.reload()" style="cursor:pointer;">HDHUB<span>4U</span></div>
 
-    <main id="main-content">
-        <div class="container" id="movie-grid">
-            </div>
+<div class="search-box">
+<input type="text" id="movieInput" placeholder="Search Movies Here...">
+<button id="searchBtn"><i class="fa fa-search"></i></button>
+</div>
+</div>
 
-        <div class="pagination">
-            <button id="prev">Previous</button>
-            <span id="pageNumber">Page 1 of 500</span>
-            <button id="next">Next Page</button>
-        </div>
-    </main>
+<nav class="nav-bar">
+<button class="nav-btn" onclick="filterMovies('home')">Home</button>
+<button class="nav-btn" onclick="fetchSpecial('popular')">🫠 Popular</button>
+<button class="nav-btn" onclick="fetchSpecial('upcoming')">😈 Upcoming</button>
+<button class="nav-btn" onclick="filterMovies('bollywood')">BollyWood</button>
+<button class="nav-btn" onclick="filterMovies('hollywood')">HollyWood</button>
+<button class="nav-btn" onclick="filterMovies('south')">South Hindi</button>
+<button class="nav-btn" onclick="filterMovies('series')">Web Series</button>
+</nav>
+</header>
 
-    <div style="display:none;">
-        <p>Trending on HDHub4u: YouTube, IPL 2026, Saiyaara Full Movie, King Shah Rukh Khan, 
-        Avengers Doomsday, Netflix Series, Amazon Prime Video, 300mb Movies Download, 
-        Kantara A Legend, Ramayana Part 1, Indian Premier League Live, HDHub4u Original site.</p>
-    </div>
+<div class="alert-box">
+Avoid FAKE Copies of HDHub4u. Use our official domain with VPN.
+</div>
 
-    <script src="js/app.js"></script>
+<main id="main-content">
+<div class="container" id="movie-grid"></div>
 
-    <footer style="background: #111; padding: 20px; text-align: center; border-top: 2px solid #e50914; margin-top: 50px;">
-        <p style="color: white;">&copy; 2026 HDHub4u - All Movie Info from TMDB API</p>
-        <div style="margin-top: 10px;">
-            <a href="disclaimer.html" style="color: #bbb; text-decoration: none; margin: 0 10px;">Disclaimer</a> | 
-            <a href="privacy.html" style="color: #bbb; text-decoration: none; margin: 0 10px;">Privacy Policy</a>
-        </div>
-    </footer>
+<div class="pagination">
+<button id="prev">Previous</button>
+<span id="pageNumber">Page 1 of 500</span>
+<button id="next">Next Page</button>
+</div>
+</main>
 
-    <section class="news-section">
-        <div class="container">
-            <h2 class="section-title"><i class="fas fa-bolt" style="color: #ffcc00;"></i> Latest Cinema News</h2>
-            <div id="news-grid" class="news-grid">
-                <div class="loading-news">
-                    <div class="spinner"></div>
-                    <p>Fetching Fresh Filmi Khabrein...</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Hamburger Button -->
+<div style="display:none;">
+<p>Trending on HDHub4u: YouTube, IPL 2026, Saiyaara Full Movie, King Shah Rukh Khan,
+Avengers Doomsday, Netflix Series, Amazon Prime Video, 300mb Movies Download,
+Kantara A Legend, Ramayana Part 1, Indian Premier League Live, HDHub4u Original site.</p>
+</div>
+
+
+<footer style="background:#111;padding:20px;text-align:center;border-top:2px solid #e50914;margin-top:50px;">
+<p style="color:white;">&copy; 2026 HDHub4u - All Movie Info from TMDB API</p>
+</footer>
+
+<section class="news-section">
+<div class="container">
+<h2 class="section-title"><i class="fas fa-bolt"></i> Latest Cinema News</h2>
+<div id="news-grid" class="news-grid"></div>
+</div>
+</section>
+
 <div id="hamburger">
-  <i class="fas fa-bars"></i>
+<i class="fas fa-bars"></i>
 </div>
 
-<!-- Sidebar -->
 <div id="sidebar">
-  <div class="sidebar-header">
-    <h3>HDHub4u</h3>
-    <span id="closeSidebar">&times;</span>
-  </div>
-
-  <button class="sidebar-btn" id="openNews">
-    📰 Latest News
-  </button>
-
-  <div id="sidebar-news" style="display:none;">
-
-      <div class="news-item">
-    <h4>🎬 Bollywood Box Office Update</h4>
-    <p>2026 ki sabse badi opening movie ne records tod diye.</p>
-  </div>
-
-  <div class="news-item">
-    <h4>🔥 South Movie Craze</h4>
-    <p>South cinema ka global craze 2026 me aur tez.</p>
-  </div>
-
-  <div class="news-item">
-    <h4>🎥 Hollywood News</h4>
-    <p>New superhero movie ne fans ko surprise kar diya.</p>
-  </div>
-    <!-- STEP-3 me yahan news aayegi -->
-  </div>
+<div class="sidebar-header">
+<h3>HDHub4u</h3>
+<span id="closeSidebar">&times;</span>
 </div>
 
-<!-- Overlay -->
+<button class="sidebar-btn" id="openNews">📰 Latest News</button>
+
+<div id="sidebar-news">
+<div class="news-item">...</div>
+</div>
+</div>
+
 <div id="overlay"></div>
 
 <script src="js/app.js"></script>
+
 </body>
-</html>
+    </html>
