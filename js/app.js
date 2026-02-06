@@ -1,43 +1,59 @@
-const API_KEY = '7cf8535c2aa2c745040de291475c23d2';
-const BASE_URL = 'https://api.themoviedb.org/3';
-const IMG_URL = 'https://image.tmdb.org/t/p/w500';
+const API_KEY = "7cf8535c2aa2c745040de291475c23d2";
+const IMG = "https://image.tmdb.org/t/p/w500";
 
-let currentPage = 1;
-
-async function loadMovies(page = 1) {
-  const res = await fetch(
-    `${BASE_URL}/discover/movie?api_key=${API_KEY}&sort_by=popularity.desc&page=${page}`
-  );
-  const data = await res.json();
-  displayMovies(data.results);
+// ---------- HOME ----------
+if (document.getElementById("movie-grid")) {
+  fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`)
+    .then(res => res.json())
+    .then(data => showMovies(data.results));
 }
 
-function displayMovies(movies) {
+function showMovies(movies) {
   const grid = document.getElementById("movie-grid");
   grid.innerHTML = "";
 
-  movies.forEach(movie => {
-    if (!movie.poster_path) return;
+  movies.forEach(m => {
+    if (!m.poster_path) return;
 
-    const card = document.createElement("div");
-    card.className = "movie-card";
-    card.onclick = () => {
-      location.href = `details.html?id=${movie.id}&type=movie`;
-    };
-
-    card.innerHTML = `
-      <div class="hindi-label">WATCH ONLINE</div>
-      <img src="${IMG_URL + movie.poster_path}">
-      <div class="movie-info">
-        <h4>${movie.title}</h4>
-        <div class="action-btns">
-          <div class="btn-wt">Watch Online</div>
-        </div>
-      </div>
+    const div = document.createElement("div");
+    div.className = "card";
+    div.innerHTML = `
+      <img src="${IMG + m.poster_path}">
+      <h4>${m.title}</h4>
     `;
-
-    grid.appendChild(card);
+    div.onclick = () => {
+      location.href = `details.html?id=${m.id}`;
+    };
+    grid.appendChild(div);
   });
 }
 
-loadMovies();
+// ---------- DETAILS ----------
+if (document.getElementById("details")) {
+  const id = new URLSearchParams(location.search).get("id");
+
+  fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}`)
+    .then(res => res.json())
+    .then(movie => loadDetails(movie));
+}
+
+function loadDetails(movie) {
+  const box = document.getElementById("details");
+
+  box.innerHTML = `
+    <h2>${movie.title}</h2>
+    <img src="${IMG + movie.poster_path}" class="poster">
+    <p>${movie.overview}</p>
+
+    <h3>Watch Online</h3>
+    <iframe
+      src="https://archive.org/embed/night_of_the_living_dead"
+      width="100%"
+      height="420"
+      frameborder="0"
+      allowfullscreen>
+    </iframe>
+
+    <p class="source">Source: Internet Archive (Public Domain)</p>
+  `;
+}
