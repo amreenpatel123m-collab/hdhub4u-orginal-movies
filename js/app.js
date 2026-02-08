@@ -1,37 +1,58 @@
-const API_KEY = "7cf8535c2aa2c745040de291475c23d2";
-const container = document.getElementById("movies");
+const TMDB_KEY = "7cf8535c2aa2c745040de291475c23d2";
+const TMDB_IMG = "https://image.tmdb.org/t/p/w500";
+const moviesDiv = document.getElementById("movies");
 
-// List of known public domain movies (safe, legal)
-const movies = [
-  { title: "Night of the Living Dead", id: "night_of_the_living_dead" },
-  { title: "Plan 9 from Outer Space", id: "plan_9_from_outer_space" },
-  { title: "His Girl Friday", id: "his_girl_friday" },
-  { title: "Charade", id: "charade_1963" },
-  { title: "Sherlock Holmes", id: "sherlock_holmes_1939" }
-];
+// STEP 1: Internet Archive se movies lao
+async function loadArchiveMovies() {
+  const url = `
+https://archive.org/advancedsearch.php?q=collection:(feature_films)+AND+mediatype:(movies)
+&fl[]=identifier,title,year
+&rows=20&page=1&output=json`;
 
-// Loop and show
-movies.forEach(movie => {
-  const url = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(movie.title)}`;
+  const res = await fetch(url);
+  const data = await res.json();
 
-  fetch(url)
-    .then(res => res.json())
-    .then(data => {
-      if (data.results && data.results[0] && data.results[0].poster_path) {
-        const poster = data.results[0].poster_path;
+  for (let item of data.response.docs) {
+    await matchWithTMDB(item);
+  }
+}
 
-        const card = document.createElement("div");
-        card.className = "card";
-        card.innerHTML = `
-          <img src="https://image.tmdb.org/t/p/w500${poster}">
-          <h3>${movie.title}</h3>
-        `;
+// STEP 2: Har movie ko TMDB se match karo
+async function matchWithTMDB(archiveMovie) {
+  if (!archiveMovie.title) return;
 
-        card.onclick = () => {
-          window.location.href = `details.html?id=${movie.id}`;
-        };
+  const searchURL = `
+https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}
+&query=${encodeURIComponent(archiveMovie.title)}
+&year=${archiveMovie.year || ""}`;
 
-        container.appendChild(card);
-      }
-    });
-});
+  const res = await fetch(searchURL);
+  const data = await res.json();
+
+  if (data.results && data.results.length > 0) {
+    const movie = data.results[0];
+    showMovie(movie, archiveMovie.identifier);
+  }
+}
+
+// STEP 3: Movie card show
+function showMovie(movie, archiveId) {
+  if (!movie.poster_path) return;
+
+  const card = document.createElement("div");
+  card.className = "card";
+
+  card.innerHTML = `
+    <img src="${TMDB_IMG + movie.poster_path}">
+    <h3>${movie.title}</h3>
+    <button>Watch Online</button>
+  `;
+
+  card.onclick = () => {
+    location.href = `details.html?tmdb=${movie.id}&archive=${archiveId}`;
+  };
+
+  moviesDiv.appendChild(card);
+}
+
+loadArchiveMovies();
