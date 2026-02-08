@@ -7,30 +7,27 @@
 </head>
 <body>
 
+<header class="topbar">
+  <div class="logo">HDHub4u</div>
+</header>
+
+<div class="details-container">
+  <div id="poster"></div>
+  <div class="info">
+    <h1 id="title"></h1>
+    <p id="overview"></p>
+
+    <button class="watch-btn" id="watchBtn">▶ Watch Online</button>
+    <button class="download-btn" disabled>⬇ Download</button>
+  </div>
+</div>
+
 <div id="player"></div>
 
 <p class="note">
-  We do not host any files. Movie is streamed legally from Internet Archive.
+  We do not host any files. Movies are streamed legally from Internet Archive.
 </p>
 
-<script>
-const params = new URLSearchParams(location.search);
-const archiveId = params.get("archive");
-
-if (archiveId) {
-  document.getElementById("player").innerHTML = `
-    <iframe
-      src="https://archive.org/embed/${archiveId}"
-      width="100%"
-      height="500"
-      frameborder="0"
-      allowfullscreen>
-    </iframe>`;
-} else {
-  document.getElementById("player").innerText =
-    "Movie not available legally.";
-}
-</script>
-
+<script src="app.js"></script>
 </body>
 </html>
