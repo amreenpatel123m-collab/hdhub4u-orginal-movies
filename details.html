@@ -1,35 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Watch Movie</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Watch Movie</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div id="player"></div>
 
-<script>
-const params = new URLSearchParams(window.location.search);
-const id = params.get("id");
+<p class="note">
+  We do not host any files. Movie is streamed legally from Internet Archive.
+</p>
 
-if(id){
+<script>
+const params = new URLSearchParams(location.search);
+const archiveId = params.get("archive");
+
+if (archiveId) {
   document.getElementById("player").innerHTML = `
-    <h2>🎥 Watch Online</h2>
-    <iframe 
-      src="https://archive.org/embed/${id}"
+    <iframe
+      src="https://archive.org/embed/${archiveId}"
       width="100%"
-      height="480"
+      height="500"
       frameborder="0"
       allowfullscreen>
-    </iframe>
-
-    <p style="color:#aaa; text-align:center; font-size:13px;">
-      Source: Internet Archive (Public Domain)
-    </p>
-  `;
-}else{
-  document.getElementById("player").innerText = "Movie not found.";
+    </iframe>`;
+} else {
+  document.getElementById("player").innerText =
+    "Movie not available legally.";
 }
 </script>
 
