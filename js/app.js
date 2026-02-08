@@ -1,58 +1,58 @@
-const TMDB_KEY = "7cf8535c2aa2c745040de291475c23d2";
-const TMDB_IMG = "https://image.tmdb.org/t/p/w500";
+const API_KEY = "7cf8535c2aa2c745040de291475c23d2";
+const IMG = "https://image.tmdb.org/t/p/w500";
+
 const moviesDiv = document.getElementById("movies");
 
-// STEP 1: Internet Archive se movies lao
-async function loadArchiveMovies() {
-  const url = `
-https://archive.org/advancedsearch.php?q=collection:(feature_films)+AND+mediatype:(movies)
-&fl[]=identifier,title,year
-&rows=20&page=1&output=json`;
-
-  const res = await fetch(url);
-  const data = await res.json();
-
-  for (let item of data.response.docs) {
-    await matchWithTMDB(item);
-  }
+if (moviesDiv) {
+  fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}`)
+    .then(res => res.json())
+    .then(data => {
+      data.results.forEach(movie => {
+        const card = document.createElement("div");
+        card.className = "movie-card";
+        card.innerHTML = `
+          <img src="${IMG + movie.poster_path}">
+          <h3>${movie.title}</h3>
+        `;
+        card.onclick = () => {
+          location.href = `details.html?id=${movie.id}`;
+        };
+        moviesDiv.appendChild(card);
+      });
+    });
 }
 
-// STEP 2: Har movie ko TMDB se match karo
-async function matchWithTMDB(archiveMovie) {
-  if (!archiveMovie.title) return;
+// DETAILS PAGE
+const params = new URLSearchParams(location.search);
+const movieId = params.get("id");
 
-  const searchURL = `
-https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}
-&query=${encodeURIComponent(archiveMovie.title)}
-&year=${archiveMovie.year || ""}`;
+if (movieId && document.getElementById("title")) {
+  fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}`)
+    .then(res => res.json())
+    .then(movie => {
+      document.getElementById("title").innerText = movie.title;
+      document.getElementById("overview").innerText = movie.overview;
+      document.getElementById("poster").innerHTML =
+        `<img src="${IMG + movie.poster_path}">`;
 
-  const res = await fetch(searchURL);
-  const data = await res.json();
-
-  if (data.results && data.results.length > 0) {
-    const movie = data.results[0];
-    showMovie(movie, archiveMovie.identifier);
-  }
+      document.getElementById("watchBtn").onclick = () => {
+        searchArchive(movie.title);
+      };
+    });
 }
 
-// STEP 3: Movie card show
-function showMovie(movie, archiveId) {
-  if (!movie.poster_path) return;
-
-  const card = document.createElement("div");
-  card.className = "card";
-
-  card.innerHTML = `
-    <img src="${TMDB_IMG + movie.poster_path}">
-    <h3>${movie.title}</h3>
-    <button>Watch Online</button>
-  `;
-
-  card.onclick = () => {
-    location.href = `details.html?tmdb=${movie.id}&archive=${archiveId}`;
-  };
-
-  moviesDiv.appendChild(card);
-}
-
-loadArchiveMovies();
+function searchArchive(title) {
+  fetch(`https://archive.org/advancedsearch.php?q=${encodeURIComponent(title)}&fl[]=identifier&rows=1&page=1&output=json`)
+    .then(res => res.json())
+    .then(data => {
+      if (data.response.docs.length > 0) {
+        const id = data.response.docs[0].identifier;
+        document.getElementById("player").innerHTML = `
+          <iframe src="https://archive.org/embed/${id}"
+          width="100%" height="500" frameborder="0" allowfullscreen></iframe>`;
+      } else {
+        document.getElementById("player").innerText =
+          "Movie not available legally.";
+      }
+    });
+          }
